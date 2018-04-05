@@ -1,12 +1,14 @@
 doctype html
 html
-  head
-    title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
-    script(src="/js/lib/jquery-3.3.1.min.js")
-    script(src="https://www.youtube.com/iframe_api" async=true)
-    script(src="/js/main.js")
-  body
-    block content
-      //height is 980*495
-      //  api ley AIzaSyDTJ50xR9SyBHRzmOdtCU6W0o2OzsaqREM
+    head
+        title= title
+        link(rel='stylesheet', href='/stylesheets/style.css')
+        script(src="/js/lib/jquery-3.3.1.min.js")
+        script(src="https://www.youtube.com/iframe_api" async=true)
+        script(src="/js/main.js")
+
+        script(async defer src="https://apis.google.com/js/api.js" onload="this.onload=function(){};handleClientLoad()" onreadystatechange="if (this.readyState === 'complete') this.onload()")
+    body
+        block content
+            //height is 980*495
+            //  api ley AIzaSyB72pF0EpOncD-AfBJUaPvbvDqsO-SdXMw

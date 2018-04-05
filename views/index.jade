@@ -3,15 +3,28 @@ extends layout
 block content
   //h1= title
   //p Welcome to #{title}
-  | height is
-  span#height
+
+  button#authorize-button(style="display: none;") Authorize
+  button#signout-button(style="display: none;") Sign Out
+
+  #test
+    pre#content
+
+    | height is
+    span#height
+    br
+    | width is
+    span#width
+    br
+    | Key press
+    span#keyupcode
+    | Key long
+    span#keylongcode
   br
-  | width is
-  span#width
-  br
-  | Key pressed
-  span#keycode
-  br
+  #topNav
+    button#btnSearch search
+    button#btnFavourite Favourite
+    button#btnHistory History
   #player
 
   //iframe#ytplayer(type="text/html" width="640" height="360"
