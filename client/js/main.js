@@ -13,7 +13,7 @@ function scriptReady(type) {
       compoUtil = new window.youtubeObj.compoUtil();
       break;
     case "api":
-      api = new window.youtubeObj.http();
+      api = new window.youtubeObj.httpUtil();
       break;
     case "yt":
       ytUtil = new window.youtubeObj.ytUtil();

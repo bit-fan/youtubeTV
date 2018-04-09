@@ -8,8 +8,8 @@
       // width: '640',
       // videoId: 'M7lc1UVf-VE',
       events: {
-        'onReady': onPlayerReady,
-        'onStateChange': onPlayerStateChange
+        // 'onReady': onPlayerReady,
+        // 'onStateChange': onPlayerStateChange
       }
     });
   }
