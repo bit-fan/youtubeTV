@@ -1,73 +1,70 @@
-// import {hello} from '../lib/module'; // or './module'
+var keyPress = null,
+  compoUtil = null,
+  api = null,
+  ytUtil = null;
 
+function scriptReady(type) {
+  switch (type) {
+    case 'keyPress':
+      keyPress = new window.youtubeObj.keyPress();
+      keyPress.init("#keyEvtDiv");
+      break;
+    case "compo":
+      compoUtil = new window.youtubeObj.compoUtil();
+      break;
+    case "api":
+      api = new window.youtubeObj.http();
+      break;
+    case "yt":
+      ytUtil = new window.youtubeObj.ytUtil();
+  }
+}
 $(document).ready(function () {
 
-  $.get("../js/util/keyPress.js", function (a) {
-    // console.log(a, a);
-    alert("Script loaded but not necessarily executed.");
-  });
+  // $.get("../js/util/keyPress.js", function (a) {
+  //   // console.log(a, a);
+  // });
+
+  // $.getScript('../js/util/http.js').done((script, status) => {
+  //   console.log(script, status);
+  //   const httpUtil = new httpUtil();
+  // })
+
+
+  var ytPlayer = null;
+
   // jQuery methods go here...
   console.log($(window).width(), $(window).height());
   $('#height').text($(window).height());
   $('#width').text($(window).width());
 
-  // $('body').on('keyup', function (e) {
-  //     console.log(e, this);
-  //     $('#keycode').text(e.which);
-  //     return true;
-  // })
-
-  $('body').on('mykeyup', function (a, b, c) {
-    console.log('keyup', a, b, c);
+  $('#keyEvtDiv').on('mykeyup', function (a, b) {
+    console.log('keyup', a, b);
+    $('#keyupcode').text(b);
+    $('#keylongcode').text('');
     return true;
   })
 
-  $('body').on('mykeyupl', function (a, b, c) {
-    console.log('keyup long', a, b, c);
+  $('#keyEvtDiv').on('mykeyupl', function (a, b) {
+    console.log('keyup long', a, b);
+    $('#keylongcode').text(b);
+    $('#keyupcode').text('');
     return true;
   })
 
-  // 2. This code loads the IFrame Player API code asynchronously.
-  // var tag = document.createElement('script');
-  //
-  // tag.src = "https://www.youtube.com/iframe_api";
-  // var firstScriptTag = document.getElementsByTagName('script')[0];
-  // firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-  // 3. This function creates an <iframe> (and YouTube player)
-  //    after the API code downloads.
-  var player;
-  window.onYouTubeIframeAPIReady = function () {
-    player = new YT.Player('player', {
-      height: '390',
-      width: '640',
-      videoId: 'M7lc1UVf-VE',
-      events: {
-        'onReady': onPlayerReady,
-        'onStateChange': onPlayerStateChange
-      }
+  // local utility
+  function loadFile(path) {
+    return new Promise((resolve, reject) => {
+
+      $.getScript(path).done((script, status) => {
+        if (status === 'success') {
+          resolve(eval(script));
+        }
+      }).fail(() => {
+        reject('fail');
+      })
     });
-  }
-
-  // 4. The API will call this function when the video player is ready.
-  function onPlayerReady(event) {
-    // event.target.playVideo();
-  }
-
-  // 5. The API calls this function when the player's state changes.
-  //    The function indicates that when playing a video (state=1),
-  //    the player should play for six seconds and then stop.
-  var done = false;
-
-  function onPlayerStateChange(event) {
-    if (event.data == YT.PlayerState.PLAYING && !done) {
-      setTimeout(stopVideo, 6000);
-      done = true;
-    }
-  }
-
-  function stopVideo() {
-    player.stopVideo();
-  }
+  };
 
 });

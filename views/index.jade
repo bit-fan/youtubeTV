@@ -3,10 +3,7 @@ extends layout
 block content
   //h1= title
   //p Welcome to #{title}
-
-  button#authorize-button(style="display: none;") Authorize
-  button#signout-button(style="display: none;") Sign Out
-
+  #keyEvtDiv
   #test
     pre#content
 
@@ -25,6 +22,8 @@ block content
     button#btnSearch search
     button#btnFavourite Favourite
     button#btnHistory History
+  #search_sec
+    include .\component\search.jade
   #player
 
   //iframe#ytplayer(type="text/html" width="640" height="360"

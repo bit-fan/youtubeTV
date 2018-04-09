@@ -1,14 +1,18 @@
 doctype html
 html
-    head
-        title= title
-        link(rel='stylesheet', href='/stylesheets/style.css')
-        script(src="/js/lib/jquery-3.3.1.min.js")
-        script(src="https://www.youtube.com/iframe_api" async=true)
-        script(src="/js/main.js")
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    script(src="/js/lib/jquery-3.3.1.min.js")
+    script(src="/js/main.js")
+    script(async defer src="/js/util/componentUtil.js" onload='scriptReady("compo")')
+    script(async defer src="/js/util/http.js" onload='scriptReady("api")')
+    script(async defer src="/js/util/keyPress.js"  onload='scriptReady("keyPress")')
+    script(async defer src="/js/util/youtubeAPI.js"  onload='scriptReady("yt")')
+    
 
-        script(async defer src="https://apis.google.com/js/api.js" onload="this.onload=function(){};" onreadystatechange="if (this.readyState === 'complete') this.onload()")
-    body
-        block content
-            //height is 980*495
-            //  api ley AIzaSyB72pF0EpOncD-AfBJUaPvbvDqsO-SdXMw
+    //- script(async defer src="https://apis.google.com/js/api.js" onload="this.onload=function(){};" onreadystatechange="if (this.readyState === 'complete') this.onload()")
+  body
+    block content
+      //height is 980*495
+      //  api ley AIzaSyB72pF0EpOncD-AfBJUaPvbvDqsO-SdXMw

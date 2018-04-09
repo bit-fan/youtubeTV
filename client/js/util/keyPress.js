@@ -1,6 +1,6 @@
 (function () {
   // set some const
-  const longpressTime = 4000;
+  let longpressTime = 4000;
   const keycodeMatch = {
     37: "L",
     38: "U",
@@ -26,8 +26,9 @@
     };
   }
 
-  var keyup = function () {
-    $('body').on('keyup', function (e) {
+  var setKeyupListener = function (div) {
+
+    function listener(e) {
       // console.log(e, this);
       if (listeningKeys.indexOf(e.which) === -1) {
         return true;
@@ -36,18 +37,17 @@
         resetKeyDown();
         return true;
       }
-      $('body').trigger('mykeyup', keycodeMatch[e.which]);
-
-      $('#keyupcode').text(e.which);
-      $('#keylongcode').text('');
+      $(div).trigger('mykeyup', keycodeMatch[e.which]);
 
 
       return true;
-    })
+    }
+    $('body').off('keyup', listener);
+    $('body').on('keyup', listener);
   };
 
-  var keydown = function () {
-    $('body').on('keydown', function (e) {
+  var setKeydownListener = function (div) {
+    function listener(e) {
       // console.log(e, this);
       // $('window').trigger('KEYDOWN', keycodeMatch[e.which]);
       if (listeningKeys.indexOf(e.which) === -1) {
@@ -58,20 +58,32 @@
           return true;
         }
         if (new Date().getTime() - keydownObj.time > longpressTime) {
-          $('body').trigger('mykeyupl', keycodeMatch[e.which]);
+          $(div).trigger('mykeyupl', keycodeMatch[e.which]);
           keydownObj.skipUp = true;
-
-          $('#keylongcode').text(e.which);
-          $('#keyupcode').text('');
 
 
         }
         return true;
       }
-      keydownObj = {code: e.which, time: new Date().getTime()};
+      keydownObj = {
+        code: e.which,
+        time: new Date().getTime()
+      };
       return true;
-    })
+    }
+    $('body').off('keydown', listener);
+    $('body').on('keydown', listener);
   }
-  keyup();
-  keydown();
+
+  function keyPress(time = 2000) {
+    longpressTime = time || longpressTime;
+    const fn = keyPress.prototype;
+    fn.init = function (dom) {
+      setKeyupListener(dom);
+      setKeydownListener(dom);
+    };
+
+  }
+  window.youtubeObj = window.youtubeObj || {};
+  window.youtubeObj.keyPress = keyPress;
 })();
