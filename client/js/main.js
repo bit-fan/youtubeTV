@@ -42,6 +42,12 @@ $(document).ready(function () {
     console.log('keyup', a, b);
     $('#keyupcode').text(b);
     $('#keylongcode').text('');
+    console.log("$('#searchText').val()", $('#searchText').val());
+    search({
+      part: 'snippet',
+      type: 'video',
+      q: $('#searchText').val()
+    });
     return true;
   })
 
@@ -52,6 +58,13 @@ $(document).ready(function () {
     return true;
   })
 
+  // search
+  function search(para) {
+    api.search(para).then(searchData => {
+      console.log('search data', searchData);
+      compoUtil.renderSearchResult(searchData);
+    });
+  }
 
   // local utility
   function loadFile(path) {

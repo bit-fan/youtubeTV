@@ -2,25 +2,28 @@ const https = require('https');
 
 
 var tool = {
-  httpGet: function (url, errCallback, callback) {
-    https.get(url, (resp) => {
-      let data = '';
+  httpGet: function (url, para = {}) {
+    return new Promise((resolve, reject) => {
+      https.get(url, (resp) => {
+        let data = '';
 
-      // A chunk of data has been recieved.
-      resp.on('data', (chunk) => {
-        data += chunk;
+        // A chunk of data has been recieved.
+        resp.on('data', (chunk) => {
+          data += chunk;
+        });
+
+        // The whole response has been received. Print out the result.
+        resp.on('end', () => {
+          console.log(JSON.parse(data).explanation);
+          resolve(data);
+        });
+
+      }).on("error", (err) => {
+        console.log("Error: " + err.message);
+        reject(err);
       });
+    })
 
-      // The whole response has been received. Print out the result.
-      resp.on('end', () => {
-        console.log(JSON.parse(data).explanation);
-        callback(data);
-      });
-
-    }).on("error", (err) => {
-      console.log("Error: " + err.message);
-      errCallback && errCallback(err);
-    });
   }
 }
 
